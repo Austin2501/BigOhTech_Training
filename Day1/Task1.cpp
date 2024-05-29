@@ -1,8 +1,10 @@
 #include <bits/stdc++.h>;
 using namespace std;
 
+// abstraction
 class Person
 {
+    // encapsulation
 protected:
     string name;
 
@@ -12,13 +14,13 @@ public:
     virtual ~Person() {}
 };
 
-class Driver : public Person
+class Driver : public Person // hierarchial inheritence
 {
 public:
     Driver(string name) : Person(name) {}
 };
 
-class MP : public Person
+class MP : public Person // hierarchial inheritence
 {
 protected:
     string constituency;
@@ -38,7 +40,7 @@ public:
     virtual ~MP() {}
 };
 
-class Minister : public MP
+class Minister : public MP // multi level inheritence
 {
 public:
     Minister(string name, string constituency, Driver *driver)
@@ -47,7 +49,7 @@ public:
     virtual ~Minister() {}
 };
 
-class PM : public Minister
+class PM : public Minister // multi level inheritence
 {
     Driver *aircraftDriver;
 
