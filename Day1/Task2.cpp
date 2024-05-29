@@ -1,37 +1,65 @@
-#include <bits/stdc++.h>;
+#include <bits/stdc++.h>
 using namespace std;
 
+// Creating class for Inverter
 class Inverter
 {
-    // abstraction & encapsulation
 protected:
     double current;
     double operatingVoltage;
     double powerRating;
-    bool hasBattery;
 
 public:
-    Inverter(double current, double operatingVoltage, bool hasBattery)
-        : current(current), operatingVoltage(operatingVoltage), hasBattery(hasBattery)
+    Inverter(double current, double operatingVoltage)
+        : current(current), operatingVoltage(operatingVoltage)
     {
         powerRating = current * operatingVoltage;
     }
 
+    // Generating Power Rating function
     double getPowerRating()
     {
         return powerRating;
     }
 
+    // Function to know if the inverter is solar
+    virtual bool isSolar() = 0;
+
+    // Destructor
+    virtual ~Inverter() {}
+};
+
+// Class representing battery capability
+class HasBattery
+{
+protected:
+    bool hasBattery;
+
+public:
+    HasBattery(bool hasBattery) : hasBattery(hasBattery) {}
+
     bool hasBatteryFunction()
     {
         return hasBattery;
     }
-
-    virtual bool isSolar() = 0; // polymorphism
-
-    virtual ~Inverter() {}
 };
 
+// Class representing grid-tie capability
+class HasGridOnSystem
+{
+protected:
+    bool gridOnSystem;
+
+public:
+    HasGridOnSystem(bool gridOnSystem) : gridOnSystem(gridOnSystem) {}
+
+    bool hasGridOnSystem()
+    {
+        return gridOnSystem;
+    }
+};
+
+// Class for solar panel
 class SolarPanel
 {
     double capacity;
@@ -41,24 +69,19 @@ public:
     double getCapacity() { return capacity; }
 };
 
-class SolarInverter : public Inverter // hierarchial inheritence
+// Deriving class SolarInverter from Inverter and properties
+class SolarInverter : public Inverter, public HasBattery, public HasGridOnSystem
 {
 protected:
-    SolarPanel *panel; // association & aggregation
-    bool gridOnSystem;
+    SolarPanel *panel;
 
 public:
     SolarInverter(double current, double operatingVoltage, bool hasBattery, SolarPanel *panel, bool gridOnSystem)
-        : Inverter(current, operatingVoltage, hasBattery), panel(panel), gridOnSystem(gridOnSystem) {}
+        : Inverter(current, operatingVoltage), HasBattery(hasBattery), HasGridOnSystem(gridOnSystem), panel(panel) {}
 
-    bool isSolar() override // polymorphism
+    bool isSolar() override
     {
         return true;
-    }
-
-    bool hasGridOnSystem()
-    {
-        return gridOnSystem;
     }
 
     ~SolarInverter()
@@ -67,47 +90,53 @@ public:
     }
 };
 
-class NonSolarInverter : public Inverter // hierarchial inheritence
+// Deriving class NonSolarInverter from Inverter and HasBattery
+class NonSolarInverter : public Inverter, public HasBattery
 {
 public:
     NonSolarInverter(double current, double operatingVoltage, bool hasBattery)
-        : Inverter(current, operatingVoltage, hasBattery) {}
+        : Inverter(current, operatingVoltage), HasBattery(hasBattery) {}
 
-    bool isSolar() override // polymorphism
+    bool isSolar() override
     {
         return false;
     }
 };
 
-class PCU : public SolarInverter // hierarchial inheritence
+// Deriving class PCU from SolarInverter
+class PCU : public SolarInverter
 {
 public:
     PCU(double current, double operatingVoltage, SolarPanel *panel)
         : SolarInverter(current, operatingVoltage, true, panel, false) {}
 };
 
-class GTI : public SolarInverter //  hierarchial inheritence
+// Deriving class GTI from SolarInverter
+class GTI : public SolarInverter
 {
 public:
     GTI(double current, double operatingVoltage, SolarPanel *panel)
         : SolarInverter(current, operatingVoltage, false, panel, true) {}
 };
 
-class Regalia : public SolarInverter // hierarchial inheritence
+// Deriving class Regalia from SolarInverter
+class Regalia : public SolarInverter
 {
 public:
     Regalia(double current, double operatingVoltage, SolarPanel *panel)
         : SolarInverter(current, operatingVoltage, false, panel, false) {}
 };
 
-class Zelio : public NonSolarInverter // hierarchial inheritence
+// Deriving class Zelio from NonSolarInverter
+class Zelio : public NonSolarInverter
 {
 public:
     Zelio(double current, double operatingVoltage)
         : NonSolarInverter(current, operatingVoltage, true) {}
 };
 
-class iCruze : public NonSolarInverter // hierarchial inheritence
+// Deriving class iCruze from NonSolarInverter
+class iCruze : public NonSolarInverter // Hierarchical inheritance
 {
 public:
     iCruze(double current, double operatingVoltage)
@@ -116,7 +145,6 @@ public:
 
 int main()
 {
-
     SolarPanel *solarPanel1 = new SolarPanel(5000);
     SolarPanel *solarPanel2 = new SolarPanel(6000);
     SolarPanel *solarPanel3 = new SolarPanel(7000);
