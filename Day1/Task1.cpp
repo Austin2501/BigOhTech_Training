@@ -117,14 +117,17 @@ public:
         {
             return false; // Can't arrest PM
         }
-        else if (Minister *minister = dynamic_cast<Minister *>(mp))
-        {
-            return pm->givePermissionToArrest(minister); // See permission which set on exceeding limit
-        }
         else
         {
             // All MP can be arrested
             return mp->isArrestable();
+        }
+    }
+
+    bool CanArrestMinister(MP* mp){
+            if (Minister *minister = dynamic_cast<Minister *>(mp))
+        {
+            return pm->givePermissionToArrest(minister); // See permission which set on exceeding limit
         }
     }
 
@@ -154,8 +157,8 @@ int main()
     Commissioner commissioner(&pm);
 
     cout << "Can arrest MP: " << commissioner.canArrest(&mp1) << endl;
-    cout << "Can arrest Minister1: " << commissioner.canArrest(&minister1) << endl;
-    cout << "Can arrest Minister2: " << commissioner.canArrest(&minister2) << endl;
+    cout << "Can arrest Minister1: " << commissioner.CanArrestMinister(&minister1) << endl;
+    cout << "Can arrest Minister2: " << commissioner.CanArrestMinister(&minister2) << endl;
     cout << "Can arrest PM: " << commissioner.canArrest(&pm) << endl;
 
     return 0;
