@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "stdexcept": "cpp",
-        "string": "cpp",
-        "map": "cpp",
-        "ratio": "cpp",
-        "memory": "cpp"
-    }
-}
