@@ -1,0 +1,30 @@
+Line Plot:
+Plot a simple line graph with some sample data.
+Scatter Plot:
+Create a scatter plot with randomly generated data points.
+Bar Chart:
+Plot a bar chart showing the sales performance of different products.
+Histogram:
+Create a histogram of a given dataset.
+Pie Chart:
+Display a pie chart representing the distribution of different categories.
+Box Plot:
+Plot a box plot to visualize the distribution of a dataset and identify outliers.
+Stacked Bar Chart:
+Create a stacked bar chart showing the contribution of different categories to a total.
+Subplots:
+Create a figure with multiple subplots, each displaying different data.
+3D Plot:
+Plot a 3D surface or scatter plot using Matplotlib's 3D plotting capabilities.
+Customization:
+Customize the appearance of plots by adding titles, labels, legends, and adjusting colors, markers, and line styles.
+Saving Plots:
+Save a plot as an image file (e.g., PNG, JPEG, PDF).
+Annotating Plots:
+Add text annotations, arrows, or shapes to highlight specific points or trends in a plot.
+Plotting Time Series Data:
+Plot time-series data with appropriate formatting of the x-axis labels.
+Error Bars:
+Add error bars to a plot to display uncertainties or variability in the data.
+Interactive Plots:
+Create an interactive plot using Matplotlib's interactive backend (e.g., with widgets, tooltips).
